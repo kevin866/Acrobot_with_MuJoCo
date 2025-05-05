@@ -24,3 +24,5 @@ print("Initial qvel:", env.physics.named.data.qvel[:])
 viewer.launch(env)
 
 
+
+
