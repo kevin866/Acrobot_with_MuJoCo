@@ -3,7 +3,7 @@ import mujoco.viewer
 import numpy as np
 
 # Load your Acrobot model (assuming you have acrobot.xml)
-model = mujoco.MjModel.from_xml_path("acrobot.xml")
+model = mujoco.MjModel.from_xml_path("new_acrobot.xml")
 data = mujoco.MjData(model)
 
 # Set initial joint angles (in radians)
