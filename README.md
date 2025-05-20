@@ -1,3 +1,6 @@
+
+---
+
 ### Installation
 
 * **Using pip:**
@@ -35,5 +38,21 @@
   Script to visualize and evaluate the best-performing policy.
   *(Run with: `mjpython eva.py`)*
 
-DQN code from 
-https://github.com/FelixNica/OpenAI_Acrobot_D3QN
+* **`train.py`**
+  Trains the PPO model on the windy acrobot.
+  *(Run with: `python train.py`)*
+  After training, use the following command to visualize training results:
+
+  ```bash
+  tensorboard --logdir=./ppo_acrobot_tensorboard/
+  ```
+
+  The graph to watch is **explained variance** — the closer to 1, the better the model (theoretically).
+
+* **`eval.py`**
+  Evaluates the trained model.
+
+* **`vis.py`**
+  Visualizes the trained model.
+
+---
