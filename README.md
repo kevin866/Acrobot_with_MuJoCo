@@ -35,3 +35,5 @@
   Script to visualize and evaluate the best-performing policy.
   *(Run with: `mjpython eva.py`)*
 
+DQN code from 
+https://github.com/FelixNica/OpenAI_Acrobot_D3QN

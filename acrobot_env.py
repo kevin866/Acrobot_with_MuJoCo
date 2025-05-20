@@ -5,7 +5,7 @@ import mujoco
 import mujoco.viewer
 
 class AcrobotMujocoEnv(gym.Env):
-    def __init__(self, xml_path="acrobot.xml", render_mode=False):
+    def __init__(self, xml_path="physics_sim/acrobot.xml", render_mode=False):
         super().__init__()
         self.model = mujoco.MjModel.from_xml_path(xml_path)
         self.data = mujoco.MjData(self.model)
@@ -15,6 +15,8 @@ class AcrobotMujocoEnv(gym.Env):
         self.step_count = 0
         self.render_mode = render_mode
         self.viewer = None
+        self.target_height = 3  # meters, adjust based on link lengths
+
 
         self.action_space = spaces.Box(low=-5.0, high=5.0, shape=(1,), dtype=np.float32)
         self.observation_space = spaces.Box(
@@ -49,9 +51,22 @@ class AcrobotMujocoEnv(gym.Env):
             self.viewer.sync()
 
         obs = self._get_obs()
-        done = self.step_count >= self.max_steps
-        reward = -np.abs(self.data.qpos[0])  # reward upright
-        return obs, reward, done, False, {}
+        site_id = mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_SITE, "tip")
+        tip_pos = self.data.site_xpos[site_id]
+        tip_height = tip_pos[2]
+
+        # reward = 0.0
+        # if tip_height >= self.target_height:
+        #     reward = 10.0
+        # else:
+        #     reward = -1.0
+        reward = -np.linalg.norm(self.data.site("tip").xpos - np.array([0, 0, 4]))
+
+        success = tip_height >= self.target_height
+        terminated = success
+        truncated = self.step_count >= self.max_steps
+
+        return obs, reward, bool(terminated), bool(truncated), {}
 
     def _get_obs(self):
         return np.concatenate([self.data.qpos, self.data.qvel]).astype(np.float32)
