@@ -18,7 +18,7 @@ with mujoco.viewer.launch_passive(model, data) as viewer:
     while viewer.is_running():
         step_counter+=1
         # wind_force = np.random.normal(loc=0.0, scale=2.0, size=6)  # Gaussian wind disturbance
-        wind_force = np.array([np.random.normal(loc=0.0, scale=2.0), 0.0, 0.0, 0.0, 0.0, 0.0])  # constant wind in +x
+        wind_force = np.array([np.random.normal(loc=0.0, scale=1.0), 0.0, 0.0, 0.0, 0.0, 0.0])  # constant wind in +x
         # # print(wind_force)
         data.xfrc_applied[link2_id] = wind_force
 

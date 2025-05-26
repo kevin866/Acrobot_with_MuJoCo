@@ -11,7 +11,7 @@ class AcrobotMujocoEnv(gym.Env):
         self.data = mujoco.MjData(self.model)
         self.link2_id = self.model.body("lower_arm").id
 
-        self.max_steps = 1000
+        self.max_steps = 2000
         self.step_count = 0
         self.render_mode = render_mode
         self.viewer = None
@@ -42,7 +42,7 @@ class AcrobotMujocoEnv(gym.Env):
         self.step_count += 1
         self.data.ctrl[0] = np.clip(action[0], -5.0, 5.0)
 
-        wind_force = np.array([np.random.normal(0.0, 2.0), 0, 0, 0, 0, 0])
+        wind_force = np.array([np.random.normal(0.0, 1.0), 0, 0, 0, 0, 0])
         self.data.xfrc_applied[self.link2_id] = wind_force
 
         mujoco.mj_step(self.model, self.data)
@@ -59,13 +59,16 @@ class AcrobotMujocoEnv(gym.Env):
         u = np.clip(action[0], -5.0, 5.0)
         self.data.ctrl[0] = u
 
-        # Your original reward for reaching a position
-        position_reward = -np.linalg.norm(self.data.site("tip").xpos - np.array([0, 0, 4]))
+        tip_pos = self.data.site("tip").xpos
+        target_pos = np.array([0, 0, 4])
 
-        # Add control effort penalty
-        control_penalty = 0.01 * u**2  # adjust the coefficient as needed
+        distance = np.linalg.norm(tip_pos - target_pos)
+        reward = -distance
+        if distance < 0.2:
+            reward += 5.0  # small bonus near goal
 
-        reward = position_reward - control_penalty
+        reward -= 0.001 * np.square(action[0])
+
 
 
         success = tip_height >= self.target_height
