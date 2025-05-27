@@ -69,8 +69,6 @@ class AcrobotMujocoEnv(gym.Env):
 
         reward -= 0.001 * np.square(action[0])
 
-
-
         success = tip_height >= self.target_height
         terminated = success
         truncated = self.step_count >= self.max_steps
