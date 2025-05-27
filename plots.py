@@ -20,6 +20,7 @@ import matplotlib.pyplot as plt
 # plt.legend()
 # plt.grid(True)
 # plt.show()
+plt.style.use('dark_background')
 
 # Load the CSV files
 df1 = pd.read_csv('PPO_entropy_loss.csv')
@@ -30,8 +31,8 @@ print(df1.head())
 print(df2.head())
 
 # Plot example: assume both files have 'x' and 'y' columns
-plt.plot(df1['Step'], df1['Value'], label='PPO')
-plt.plot(df2['Step'], df2['Value'], label='PPO with effort')
+plt.plot(df1['Step'], df1['Value'], label='PPO', color='cyan', linewidth=2)
+plt.plot(df2['Step'], df2['Value'], label='PPO with effort', color='magenta', linewidth=2)
 
 # Add labels and legend
 plt.xlabel('Time Steps')
