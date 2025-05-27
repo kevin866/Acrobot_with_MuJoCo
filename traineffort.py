@@ -36,7 +36,7 @@ model = PPO(
 )
 
 # Train model
-model.learn(total_timesteps=500_000)
+model.learn(total_timesteps=900_000)
 
 # Save model
 model.save("ppo_acrobot_mujoco_effort")

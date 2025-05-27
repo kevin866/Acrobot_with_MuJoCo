@@ -20,8 +20,8 @@ action_dim = env.action_space.shape[0]
 agent = SACAgent(state_dim, action_dim)
 
 num_episodes = 500
-max_timesteps = 1000
-explore_steps = 10000  # Initial random steps before training
+max_timesteps = 2000
+explore_steps = 20000  # Initial random steps before training
 total_steps = 0
 
 for episode in range(num_episodes):

@@ -1,7 +1,8 @@
 
 # Import your custom environment
 from acrobot_env import AcrobotMujocoEnv  # Update to your actual file name
-
+from REINFORCE.train import train_reinforce
+from REINFORCE.eval import evaluate_policy
 env = AcrobotMujocoEnv()
 obs_dim = env.observation_space.shape[0]
 act_dim = env.action_space.shape[0]

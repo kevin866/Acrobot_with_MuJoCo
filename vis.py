@@ -1,11 +1,11 @@
 from stable_baselines3 import PPO
 from acrobot_env import AcrobotMujocoEnv  # Update with your actual file/module name
 import time
+import torch
 # Load the trained model
 model = PPO.load("ppo_acrobot_mujoco")
-# model = PPO.load("ppo_acrobot_mujoco_effort")
+model = PPO.load("ppo_acrobot_mujoco_effort")
 # model = PPO.load("ppo_acrobot_mujoco_effort-1")
-
 # Create the environment with rendering enabled
 env = AcrobotMujocoEnv(xml_path="physics_sim/acrobot.xml", render_mode=True)
 
