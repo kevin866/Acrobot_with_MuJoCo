@@ -3,21 +3,28 @@ from stable_baselines3 import PPO
 from stable_baselines3.common.env_checker import check_env
 from stable_baselines3.common.vec_env import DummyVecEnv
 import numpy as np
-
+from stable_baselines3.common.monitor import Monitor
 # Import your custom environment
 from acrobot_env_effort import AcrobotMujocoEnv  # Update to your actual file name
+from stable_baselines3.common.callbacks import EvalCallback
 
-# Wrap it into a Gym-compatible function
 def make_env():
-    return AcrobotMujocoEnv(xml_path="physics_sim/acrobot.xml", render_mode=False)
-
+    env = AcrobotMujocoEnv(xml_path="physics_sim/acrobot.xml", render_mode=False)
+    return Monitor(env)  
 # Check environment
 env = make_env()
 check_env(env)
 
 # Vectorize environment
 vec_env = DummyVecEnv([make_env])
-
+eval_callback = EvalCallback(
+    env,
+    eval_freq=5000,
+    log_path="./eval_logs/",
+    deterministic=True,
+    render=False,
+    n_eval_episodes=1  # log per episode reward
+)
 # Define model
 model = PPO(
     "MlpPolicy",
@@ -36,7 +43,7 @@ model = PPO(
 )
 
 # Train model
-model.learn(total_timesteps=900_000)
+model.learn(total_timesteps=1_000_000, tb_log_name="PPO_effort3",callback=eval_callback)
 
 # Save model
 model.save("ppo_acrobot_mujoco_effort")

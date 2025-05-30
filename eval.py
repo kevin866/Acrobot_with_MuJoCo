@@ -1,11 +1,15 @@
 import numpy as np
 from stable_baselines3 import PPO
-from acrobot_env import AcrobotMujocoEnv  # Update the import
+# from acrobot_env_effort_v2 import AcrobotMujocoEnv  # Update the import
+# from acrobot_env import AcrobotMujocoEnv  # Update the import
+from acrobot_env_effort import AcrobotMujocoEnv  # Update the import
+
 import gymnasium as gym
 import time
 # Load trained model
-model = PPO.load("ppo_acrobot_mujoco")
-model = PPO.load("ppo_acrobot_mujoco_effort")
+# model = PPO.load("ppo_acrobot_mujoco")
+# model = PPO.load("ppo_acrobot_mujoco_effort")
+model = PPO.load("ppo_acrobot_mujoco_effort_rew")
 
 # model = PPO.load("ppo_acrobot_mujoco_effort-1")
 
