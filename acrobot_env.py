@@ -76,7 +76,7 @@ class AcrobotMujocoEnv(gym.Env):
         reward = -np.linalg.norm(tip_pos - target_pos)
         distance = np.linalg.norm(tip_pos - target_pos)
         reward = -distance
-        if distance < 0.2:
+        if distance < 0.5:
             reward += 5.0  # small bonus near goal
 
         success = tip_height >= self.target_height

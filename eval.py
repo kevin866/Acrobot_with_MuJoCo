@@ -7,9 +7,9 @@ from acrobot_env_effort import AcrobotMujocoEnv  # Update the import
 import gymnasium as gym
 import time
 # Load trained model
-# model = PPO.load("ppo_acrobot_mujoco")
+model = PPO.load("ppo_acrobot_mujoco")
 # model = PPO.load("ppo_acrobot_mujoco_effort")
-model = PPO.load("ppo_acrobot_mujoco_effort_rew")
+# model = PPO.load("ppo_acrobot_mujoco_effort_rew")
 
 # model = PPO.load("ppo_acrobot_mujoco_effort-1")
 
