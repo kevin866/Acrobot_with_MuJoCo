@@ -30,6 +30,13 @@
 * **`acrobot_env.py`**
   Custom environment wrapper. You can modify the reward function and other environment settings here (e.g., energy cost).
 
+  * **`acrobot_env_effort.py`**
+  acrobot environment with added control effort penalty to the reward function
+
+  * **`acrobot_env_effort2.py`**
+  acrobot environment with added control effort penalty to the reward function version 2
+
+
 * **`agent.py`**
   Sample script to train a model using the environment.
   *(Run with: `python agent.py`)*
